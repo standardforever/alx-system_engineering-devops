@@ -1,1 +1,1 @@
-my third project
+The directory contains some basic shell commands
