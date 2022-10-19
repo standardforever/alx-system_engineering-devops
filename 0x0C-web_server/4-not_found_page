@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-# Configure Nginx server so that /redirect_me is redirecting to another page.
+# Configure Nginx server to have a custom 404 page that contains the string Ceci n'est pas une page
 apt-get update
 apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-mkdir -p /var/www/html/
-sudo chmod -R 755 /var/www
+ufw allow 'Nginx HTTP'
+mkdir -p /var/www/html /var/www/error
+chmod -R 755 /var/www
 echo 'Hello World!' > /var/www/html/index.html
+echo -e "Ceci n\x27est pas une page" > /var/www/error/404.html
+
 SCONFIG=\
 "server {
 	listen 80 default_server;
@@ -18,6 +20,11 @@ SCONFIG=\
 	}
 	if (\$request_filename ~ redirect_me){
 		rewrite ^ https://st-pardon.netlify.app permanent;
+	}
+	error_page 404 /404.html;
+	location = /404.html {
+		root /var/www/error/;
+		internal;
 	}
 }"
 
