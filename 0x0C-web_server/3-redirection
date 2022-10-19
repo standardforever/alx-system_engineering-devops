@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# THis script will install nginx on a server
+
+apt update
+apt install -y nginx
+echo 'Hello World!' > /var/www/html/index.html
+CONFIG=\
+"server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                try_files $uri $uri/ =404;
+        } 
+	if (\$request_filename ~ redirect_me) {
+		rewrite ^ https://www.google.com permanet;
+	}
+}"
+bash -c "echo -e '$CONFIG' > /etc/nginx/sites-enabled/default"
+service nginx restart
