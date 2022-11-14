@@ -12,7 +12,7 @@ if __name__ == "__main__":
     id = sys.argv[1]
     url = 'https://jsonplaceholder.typicode.com'
     user = requests.get("{}/users/{}".format(url, id)).json()
-    todos = requests.get("{}/todos".format(url), params= {"userId": id}).json()
+    todos = requests.get("{}/todos".format(url), params={"userId": id}).json()
 
     todo_dict = {}
     todo_list = []
