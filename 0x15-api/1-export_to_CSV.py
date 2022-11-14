@@ -18,9 +18,10 @@ if __name__ == "__main__":
     todo_list = []
     for todo in todos:
         del todo["id"]
-        todo["name"] = user.get("name")
+        todo["name"] = user.get("username")
         todo_list.append(todo)
     field_name = ["userId", "name", "completed", "title"]
-    with open("USER_ID.csv", 'w') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=field_name)
+    with open("{}.csv".format(todo["userId"]), 'w') as csv_file:
+        writer = csv.DictWriter(csv_file,
+                                fieldnames=field_name, quoting=csv.QUOTE_ALL)
         writer.writerows(todo_list)
