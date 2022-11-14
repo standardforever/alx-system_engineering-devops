@@ -23,6 +23,5 @@ if __name__ == "__main__":
         todo_list.append(todo_dict)
     new_dict = {}
     new_dict[id] = todo_list
-    json_file = json.dumps(new_dict)
     with open("{}.json".format(id), "w") as r:
-        r.write(json_file)
+        json.dump(new_dict, r)
