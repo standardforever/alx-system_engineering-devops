@@ -3,10 +3,10 @@
 """
 export json file to csv
 """
-
-import requests
-from os import sys
 import csv
+from os import sys
+import requests
+
 
 if __name__ == "__main__":
     id = sys.argv[1]
